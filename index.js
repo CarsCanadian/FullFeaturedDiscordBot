@@ -84,6 +84,55 @@ client.on('ready', () => {
             .setURL('https://www.youtube.com/')
             .setAuthor(message.author.username)
             .setImage(logo)
+            .setThumbnail(logo)
+            .setFooter('This is a footer', logo)
+            .setColor('#00AAFF')
+            .addFields({
+                name: 'Field 1',
+                value: 'Hello World',
+                inline: true,
+            },
+            {
+                name: 'Field 2',
+                value: 'Hello World',
+                inline: true,
+            },
+            {
+                name: 'Field 3',
+                value: 'Hello World',
+                inline: true
+            })
+
+        message.channel.send(embed)
+    })
+
+    // -serverinfo Sends information about the server as a message
+    command(client, 'serverinfo', (message) => {
+        const { guild } = message
+
+        const { name, region, memberCount, owner, afkTimeout} = guild
+        const icon = guild.iconURL()
+
+        const embed = new Discord.MessageEmbed()
+            .setTitle(`Server info for ${name}`)
+            .setThumbnail(icon)
+            .addFields(
+                {
+                name: 'Region',
+                value: region,
+            },
+            {
+                name: 'Members',
+                value: memberCount,
+            },
+            {
+                name: 'Owner',
+                value: owner.user.tag
+            },
+            {
+                name: 'AFk Timeout',
+                value: afkTimeout / 60 + ' Minutes'
+            })
 
         message.channel.send(embed)
     })
